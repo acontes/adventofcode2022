@@ -42,7 +42,6 @@ linenb = 11
 stop = 5
 while True:
     line1 = file.readline().strip()
-    print(" >>> " + line1)
     if not line1:
         break
 
