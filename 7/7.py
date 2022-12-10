@@ -2,20 +2,16 @@ import math
 
 file = open('input.txt', 'r')
 # A, X : rock : 1
-# B, Y Paper : 2 
+# B, Y Paper : 2
 # C, Z : Scissor: 3
 
 
 class Node:
-    def __init__(self,name,parent,size):
+    def __init__(self, name, parent, size):
         self.name = name
         self.parent = parent
         self.size = size
         self.children = []
-
-    # print function
-    def PrintTree(self):
-        print(self.data)
 
     def add(self, node):
         self.size += node.size
@@ -38,28 +34,29 @@ class Node:
 
 
 def display(node, padding):
-    if node.children: 
-        print("%s - %s :d|%s " % (padding,node.name,node.size))
+    if node.children:
+        print("%s - %s :d|%s " % (padding, node.name, node.size))
     else:
-        print("%s - %s :f|%s " % (padding,node.name,node.size))
+        print("%s - %s :f|%s " % (padding, node.name, node.size))
     for i in node.children:
         display(i, padding + "  ")
+
 
 dict = {}
 v = 1
 
 a = ord('a')
 
-for i in range(0,26):
+for i in range(0, 26):
     dict[chr(a+i)] = i+1
 
 a = ord('A')
-for i in range(0,26):
+for i in range(0, 26):
     dict[chr(a+i)] = i+27
 
 
 total = 0
-queues = [ [] for q in range(9) ]
+queues = [[] for q in range(9)]
 root = None
 tree = None
 while True:
@@ -79,23 +76,23 @@ while True:
                             tree = tree.parent
                             tree.compute()
                     else:
-                        t = Node(action[2],tree,0)
+                        t = Node(action[2], tree, 0)
                         if tree:
                             tree.add(t)
                             tree = t
                         else:
-                           root = tree = t
+                            root = tree = t
         case "dir":
             pass
         case _:
-            tree.add(Node(action[1],tree,int(action[0])))
-        
+            tree.add(Node(action[1], tree, int(action[0])))
+
 
 def inspect(node):
 
     if not node:
         return []
-    
+
     if not node.children:
         return []
 
@@ -113,5 +110,5 @@ def inspect(node):
 display(root, "")
 
 a = inspect(root)
-print(a )
-print(sum(map(lambda node : node.size, a)))
+print(a)
+print(sum(map(lambda node: node.size, a)))
